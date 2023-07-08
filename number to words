@@ -1,0 +1,197 @@
+// CODE WITH EDISON 
+//TSAPP: +250788240303 EMAIL: edsnkvn@gmail.com
+
+// cpp program to comvert numbers in its correponding words
+//this program will use diffrent functo to compute this task
+
+#include<iostream>
+using namespace std;
+
+// function to convert single digit number
+
+string convertSingleDigit(int num){
+	switch(num){
+		case 0:
+			return "zero";
+		case 1:
+			return "one";
+			case 2:
+				return "two";
+				case 3:
+					return "three";
+					case 4:
+						return "four";
+						case 5:
+							return "five";
+							case 6:
+								return "six";
+								case 7:
+									return "seven";
+									case 8:
+										return "eight";
+										case 9:
+											return "nine";
+											default:
+												return "";
+					
+	}
+}
+
+// functin to  convert two digits
+
+string convertTwoDigit(int num){
+	string result;
+	if (num <10){
+		result += convertSingleDigit(num);
+	}
+	
+	else if(num <20){
+		switch(num){
+			case 10:
+				result += "ten";
+				break;
+				case 11:
+					result += "eleven";
+					break;
+					
+					case 12:
+						result += "twelve";
+						break;
+						case 13:
+							result += "thirteen";
+							break;
+							case 14:
+								result += "fourteen";
+								break;
+								case 15:
+									result += "fifteen";
+									break;
+									case 16:
+										result += "sixteen";
+										break;
+										case 17:
+											result += "seventeen";
+											break;
+											case 18:
+												result += "eighteen";
+												break;
+												case 19:
+													result += "nineteen";
+													break;
+		}
+	}
+	else
+	{
+		// incase number have two digit but different from 10-19
+		// we take first digit by diide them by 10
+		
+		int tens = num/10;
+		switch(tens){
+			case 2:
+				result += "twenty";
+				break;
+				case 3:
+					result += "thirty";
+					break;
+					case 4:
+					result += "fourty";
+					break;
+					case 5:
+					result += "fifty";
+					break;
+					case 6:
+					result += "sixty";
+					break;
+					case 7:
+					result += "seventy";
+					break;
+					case 8:
+					result += "eighty";
+					break;
+					case 9:
+					result += "ninety";
+					break;
+					default:
+						break;
+						
+		}
+		// take remaning number by using modulus %
+		
+		int units = num%10;
+		if(units !=0){
+		result += " ";
+		result += convertSingleDigit(units);	
+		}
+	
+	}
+	return result;
+	}
+	
+		// function to convert three ddigit number into words
+	// we need to divide by 100 to get beginning number
+	string convertThreeDigit(int num){
+		string result;
+		int hundreds = num / 100;
+		if(hundreds != 0){
+			result += convertSingleDigit(hundreds);
+			result += " hundreds ";
+		}
+		
+		int remaining = num % 100;
+    if (remaining != 0)
+    {
+        result += convertTwoDigit(remaining);
+    }
+	return result;
+		
+}
+
+ //function to convert number into words
+
+string convertNumberToWords(int num){
+	if(num == 0)
+	{
+		return " zero ";
+	}
+	string result;
+	if(num <0)
+	{
+		result += " minus ";
+		num = -num;
+	}
+	int billions = num / 1000000000;
+	if (billions != 0)
+	{
+		result += convertThreeDigit(billions);
+		result += " billions ";
+	}
+	int millions = (num / 1000000)% 1000;
+	if (millions != 0)
+	{
+		result += convertThreeDigit(millions);
+		result += " millions ";
+	}
+	int thousands = (num / 1000)%1000;
+	if(thousands != 0)
+	{
+		result += convertThreeDigit(thousands);
+		result += " thousands ";
+	}
+	int remaining = num % 1000;
+	if(remaining != 0)
+	{
+		result += convertThreeDigit(remaining);
+	}
+	return result;
+}
+
+int main(){
+	int n;
+	cout<<"enter any number:\n";
+	cin>>n;
+
+string result = convertNumberToWords(n);
+cout<< "in words: " <<result <<endl;
+
+	return 0;
+}
